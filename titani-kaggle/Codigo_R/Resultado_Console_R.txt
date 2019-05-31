@@ -1,0 +1,49 @@
+> # Leitura dos arquivos
+> train <- read.csv("train.csv")
+> test <- read.csv("test.csv")
+> 
+> # Execução do modelo
+> ptabela <- lm(Survived~as.factor(Sex)+Age+Pclass, data = train,subset =Pclass<3)
+> 
+> # Analisando o R Quadrado, Erro Padrão e P-valor
+> summary(ptabela)
+
+Call:
+lm(formula = Survived ~ as.factor(Sex) + Age + Pclass, data = train, 
+    subset = Pclass < 3)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.21156 -0.22528 -0.04994  0.14423  0.97859 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         1.428819   0.084064  16.997  < 2e-16 ***
+as.factor(Sex)male -0.638108   0.037763 -16.898  < 2e-16 ***
+Age                -0.005772   0.001304  -4.427 1.27e-05 ***
+Pclass             -0.205716   0.038711  -5.314 1.90e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.3511 on 355 degrees of freedom
+  (41 observations deleted due to missingness)
+Multiple R-squared:  0.5025,	Adjusted R-squared:  0.4983 
+F-statistic: 119.5 on 3 and 355 DF,  p-value: < 2.2e-16
+
+> #coef(ptabela)
+> 
+> # Execução do modelo
+> pc<-predict(ptabela, newdata = test)
+> 
+> # Classificação de Survived, através do gatilho 0.5
+> pr7 <- ifelse(pc < 0.5,0,1)  
+> 
+> # Montagem do dataframe para saída de dados
+> pr_data7 <- cbind(test$PassengerId,pr7)
+> pr_data7 <- as.data.frame(pr_data7)
+> 
+> # Nome das Colunas
+> names(pr_data7) <- c("PassengerId", "Survived")
+> 
+> # Gravação em disco do arquivo a ser submetido no site Kaggle
+> write.csv(pr_data7, file="predict73.csv", row.names = FALSE)
