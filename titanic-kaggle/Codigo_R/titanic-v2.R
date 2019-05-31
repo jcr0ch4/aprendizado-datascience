@@ -30,7 +30,8 @@
 
 
 
-# Quantidade de Mulheres e Homens no dataset de Traino
+# Quantidade de Mulheres e Homens no dataset de Treino
+table(train$Sex)
 table(is.na(train$Sex))
 # FALSE 
 # 891 
@@ -83,13 +84,13 @@ plot(table(train$Sex))
 
 # Quantidade de pessoas por Classe
 table(train$Pclass)
-plot(table(train$Pclass))
+
 #   1   2   3 
 #  216 184 491
 
 # Quantidade de pessoas por Classe
 table(train$Age)
-plot(table(train$Age))
+
 #0.42 0.67 0.75 0.83 0.92  1    2    3    4    5    6    7    8    9   10   11   12   13   14 
 #  1    1    2    2    1   7   10    6   10    4    3    3    4    8    2    4    1    2    6 
 #  
@@ -104,24 +105,6 @@ plot(table(train$Age))
 # 4    3    4    2    2    3    1    2    1    2    1    1
 table(train$SibSp)
 plot(train$SibSp)
-library(ggplot2) # Visualização de Dados
-library(readr) # Leitura de arquivo
-library('randomForest') #predição de sobreviventes
-boxplot(train$Pclass)
-boxplot(train$SibSp)
-boxplot(train$Age)
-# CLEAN os dados
-# Análise exploratória de dados
-# Estatística PREVISÃO / MODELAGEM
-# INTERPRET Resultados
-# Resultados do DESAFIO
-# Synthesize / WRITE UP resultados
-# Criar CÓDIGO reproduzível
-#
-#
-#
-#
-#
 
 # Leitura dos arquivos
 train <- read.csv("train.csv")

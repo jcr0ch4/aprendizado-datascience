@@ -1,0 +1,377 @@
+> # Define the QUESTION
+> # -> Sobreviventes no naufragio do Titanic
+> # Define the IDEAL DATA SET
+> # -> 
+> # Determine WHAT DATA you can access ( Determine QUE DADOS você pode acessar)
+> # -> 
+> # OBTAIN the data ( OBTENHA os dados )
+> # -> Efetuar o download das informações no site www.kaggle.com
+> # -> Não consegui mudar meu displayname para FSBDS20_Jose Carlos, ficou Jose Carlos
+> # CLEAN the data
+> # Exploratory DATA ANALYSIS
+> # Statistical PREDICTION/MODELING
+> # INTERPRET Results
+> # CHALLENGE results
+> # Synthesize/ WRITE UP results
+> # Create reproducible CODE
+> #
+> 
+> # Survival:   Sobrevivente
+> # PassengerId: ID único de um passageiro
+> # pClass: Classe de bilhetes  
+> # Sex:    Sexo
+> # Age:    Idade em anos   
+> # SibSp:  Número de irmãos / cônjuges a bordo do Titanic  
+> # Parch:  Número de pais / filhos a bordo do Titanic  
+> # Ticket: Numero do bilhete   
+> # Fare:   Tarifa de passageiros   
+> # Cabin:  Número de cabine    
+> # Embarked:   Porto de embarcação
+> 
+> 
+> 
+> # Quantidade de Mulheres e Homens no dataset de Treino
+> table(train$Sex)
+
+female   male 
+   314    577 
+> table(is.na(train$Sex))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> table(is.na(train$Pclass))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> table(is.na(train$Age))
+
+FALSE  TRUE 
+  714   177 
+> # FALSE  TRUE 
+> # 714   177 
+> 
+> table(is.na(train$SibSp))
+
+FALSE 
+  891 
+> # FALSE  TRUE 
+> # 714   177 
+> 
+> table(is.na(train$Parch))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> table(is.na(train$Ticket))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> table(is.na(train$Fare))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> table(is.na(train$Cabin))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> table(is.na(train$Embarked))
+
+FALSE 
+  891 
+> # FALSE 
+> # 891 
+> 
+> 
+> # Dados com valores nulos
+> # Estes dados precisam ser tratados, não sei como ainda, 2019-05-30 - 15:04
+> #       | SibSp  | Age    |
+> # ------+--------+--------+
+> # FALSE |  714   | 714    |
+> #  TRUE |  177   | 177    |
+> # --------------------------
+> 
+> 
+> plot(table(train$Sex))
+> # female   male 
+> # 314    577 
+> 
+> # Quantidade de pessoas por Classe
+> table(train$Pclass)
+
+  1   2   3 
+216 184 491 
+> 
+> #   1   2   3 
+> #  216 184 491
+> 
+> # Quantidade de pessoas por Classe
+> table(train$Age)
+
+0.42 0.67 0.75 0.83 0.92    1    2    3    4    5    6    7    8    9   10   11   12   13   14 14.5   15   16   17   18   19   20 20.5   21   22   23 23.5   24 24.5   25   26   27 
+   1    1    2    2    1    7   10    6   10    4    3    3    4    8    2    4    1    2    6    1    5   17   13   26   25   15    1   24   27   15    1   30    1   23   18   18 
+  28 28.5   29   30 30.5   31   32 32.5   33   34 34.5   35   36 36.5   37   38   39   40 40.5   41   42   43   44   45 45.5   46   47   48   49   50   51   52   53   54   55 55.5 
+  25    2   20   25    2   17   18    2   15   15    1   18   22    1    6   11   14   13    2    6   13    5    9   12    2    3    9    9    6   10    7    6    1    8    2    1 
+  56   57   58   59   60   61   62   63   64   65   66   70 70.5   71   74   80 
+   4    2    5    2    4    3    4    2    2    3    1    2    1    2    1    1 
+> 
+> #0.42 0.67 0.75 0.83 0.92  1    2    3    4    5    6    7    8    9   10   11   12   13   14 
+> #  1    1    2    2    1   7   10    6   10    4    3    3    4    8    2    4    1    2    6 
+> #  
+> #14.5  15   16   17   18   19   20 20.5   21   22   23 23.5   24 24.5   25   26   27   28 28.5 
+> # 1    5    17   13   26   25   15    1   24   27   15    1   30    1   23   18   18   25    2 
+> #
+> # 29   30 30.5   31   32 32.5   33   34 34.5   35   36 36.5   37   38   39   40 40.5   41   42 
+> # 20   25    2   17   18    2   15   15    1   18   22    1    6   11   14   13    2    6   13 
+> # 43   44   45 45.5   46   47   48   49   50   51   52   53   54   55 55.5   56   57   58   59 
+> # 5    9   12    2    3    9    9    6   10    7    6    1    8    2    1    4    2    5    2 
+> # 60   61   62   63   64   65   66   70 70.5   71   74   80 
+> # 4    3    4    2    2    3    1    2    1    2    1    1
+> table(train$SibSp)
+
+  0   1   2   3   4   5   8 
+608 209  28  16  18   5   7 
+> plot(train$SibSp)
+> 
+> # Leitura dos arquivos
+> train <- read.csv("train.csv")
+> test <- read.csv("test.csv")
+> train <- read.csv("train.csv",stringsAsFactor=F)
+> test <- read.csv("test.csv",stringsAsFactor=F)
+> 
+> # Comparando os Datasets 
+> ncol(train)
+[1] 12
+> ncol(test)
+[1] 11
+> # > ncol(train)
+> # [1] 12
+> # > ncol(test)
+> # [1] 11
+> 
+> 
+> #Igualando o numero de colunas com a coluna faltante e acrescentando o valor NA
+> test$Survived <- NA
+> 
+> train$TrainSet <- TRUE
+> test$TrainSet <- FALSE
+> dados_full <- rbind(train,test)
+> table(dados_full$TrainSet)
+
+FALSE  TRUE 
+  418   891 
+> table(dados_full$Survived, dados_full$Sex)
+   
+    female male
+  0     81  468
+  1    233  109
+> boxplot(dados_full$Fare)
+> 
+> boxplot.stats(dados_full$Fare)
+$stats
+[1]  0.0000  7.8958 14.4542 31.2750 65.0000
+
+$n
+[1] 1308
+
+$conf
+[1] 13.43283 15.47557
+
+$out
+  [1]  71.2833 263.0000 146.5208  82.1708  76.7292  80.0000  83.4750  73.5000 263.0000  77.2875 247.5208  73.5000  77.2875  79.2000  66.6000  69.5500  69.5500 146.5208  69.5500
+ [20] 113.2750  76.2917  90.0000  83.4750  90.0000  79.2000  86.5000 512.3292  79.6500 153.4625 135.6333  77.9583  78.8500  91.0792 151.5500 247.5208 151.5500 110.8833 108.9000
+ [39]  83.1583 262.3750 164.8667 134.5000  69.5500 135.6333 153.4625 133.6500  66.6000 134.5000 263.0000  75.2500  69.3000 135.6333  82.1708 211.5000 227.5250  73.5000 120.0000
+ [58] 113.2750  90.0000 120.0000 263.0000  81.8583  89.1042  91.0792  90.0000  78.2667 151.5500  86.5000 108.9000  93.5000 221.7792 106.4250  71.0000 106.4250 110.8833 227.5250
+ [77]  79.6500 110.8833  79.6500  79.2000  78.2667 153.4625  77.9583  69.3000  76.7292  73.5000 113.2750 133.6500  73.5000 512.3292  76.7292 211.3375 110.8833 227.5250 151.5500
+ [96] 227.5250 211.3375 512.3292  78.8500 262.3750  71.0000  86.5000 120.0000  77.9583 211.3375  79.2000  69.5500 120.0000  93.5000  80.0000  83.1583  69.5500  89.1042 164.8667
+[115]  69.5500  83.1583  82.2667 262.3750  76.2917 263.0000 262.3750 262.3750 263.0000 211.5000 211.5000 221.7792  78.8500 221.7792  75.2417 151.5500 262.3750  83.1583 221.7792
+[134]  83.1583  83.1583 247.5208  69.5500 134.5000 227.5250  73.5000 164.8667 211.5000  71.2833  75.2500 106.4250 134.5000 136.7792  75.2417 136.7792  82.2667  81.8583 151.5500
+[153]  93.5000 135.6333 146.5208 211.3375  79.2000  69.5500 512.3292  73.5000  69.5500  69.5500 134.5000  81.8583 262.3750  93.5000  79.2000 164.8667 211.5000  90.0000 108.9000
+
+> stats
+Erro: objeto 'stats' não encontrado
+> 
+> # Conhecendo os Dados
+> str(train)
+'data.frame':	891 obs. of  13 variables:
+ $ PassengerId: int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Survived   : int  0 1 1 1 0 0 0 0 1 1 ...
+ $ Pclass     : int  3 1 3 1 3 3 1 3 3 2 ...
+ $ Name       : chr  "Braund, Mr. Owen Harris" "Cumings, Mrs. John Bradley (Florence Briggs Thayer)" "Heikkinen, Miss. Laina" "Futrelle, Mrs. Jacques Heath (Lily May Peel)" ...
+ $ Sex        : chr  "male" "female" "female" "female" ...
+ $ Age        : num  22 38 26 35 35 NA 54 2 27 14 ...
+ $ SibSp      : int  1 1 0 1 0 0 0 3 0 1 ...
+ $ Parch      : int  0 0 0 0 0 0 0 1 2 0 ...
+ $ Ticket     : chr  "A/5 21171" "PC 17599" "STON/O2. 3101282" "113803" ...
+ $ Fare       : num  7.25 71.28 7.92 53.1 8.05 ...
+ $ Cabin      : chr  "" "C85" "" "C123" ...
+ $ Embarked   : chr  "S" "C" "S" "S" ...
+ $ TrainSet   : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...
+> str(test)
+'data.frame':	418 obs. of  13 variables:
+ $ PassengerId: int  892 893 894 895 896 897 898 899 900 901 ...
+ $ Pclass     : int  3 3 2 3 3 3 3 2 3 3 ...
+ $ Name       : chr  "Kelly, Mr. James" "Wilkes, Mrs. James (Ellen Needs)" "Myles, Mr. Thomas Francis" "Wirz, Mr. Albert" ...
+ $ Sex        : chr  "male" "female" "male" "male" ...
+ $ Age        : num  34.5 47 62 27 22 14 30 26 18 21 ...
+ $ SibSp      : int  0 1 0 0 1 0 0 1 0 2 ...
+ $ Parch      : int  0 0 0 0 1 0 0 1 0 0 ...
+ $ Ticket     : chr  "330911" "363272" "240276" "315154" ...
+ $ Fare       : num  7.83 7 9.69 8.66 12.29 ...
+ $ Cabin      : chr  "" "" "" "" ...
+ $ Embarked   : chr  "Q" "S" "Q" "S" ...
+ $ Survived   : logi  NA NA NA NA NA NA ...
+ $ TrainSet   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+> #Verificando dados Nulos
+> table(is.na(train))
+
+FALSE  TRUE 
+11406   177 
+> #####################
+> #  FALSE   TRUE 
+> #  10515   177
+> #####################
+> 
+> table(is.na(test))
+
+FALSE  TRUE 
+ 4929   505 
+> # FALSE  TRUE 
+> # 4511    87 
+> 
+> # 
+> 
+> ptabela <- lm(Survived~(Sex*-1)+(Pclass<3)+Fare, data = train)
+> ptabela <- lm(Survived~Sex+Pclass+(Parch < 3)+(SibSp < 5), data = train)
+> 
+> ptabela <- lm(Survived~Sex+( Pclass > 0)+(SibSp < 5 & Age > 0), data = train)
+> 
+> table(dados_full$Age)
+
+0.17 0.33 0.42 0.67 0.75 0.83 0.92    1    2    3    4    5    6    7    8    9   10   11 11.5   12   13   14 14.5   15   16   17   18 18.5   19   20 20.5   21   22 22.5   23 23.5 
+   1    1    1    1    3    3    2   10   12    7   10    5    6    4    6   10    4    4    1    3    5    8    2    6   19   20   39    3   29   23    1   41   43    1   26    1 
+  24 24.5   25   26 26.5   27   28 28.5   29   30 30.5   31   32 32.5   33   34 34.5   35   36 36.5   37   38 38.5   39   40 40.5   41   42   43   44   45 45.5   46   47   48   49 
+  47    1   34   30    1   30   32    3   30   40    2   23   24    4   21   16    2   23   31    2    9   14    1   20   18    3   11   18    9   10   21    2    6   14   14    9 
+  50   51   52   53   54   55 55.5   56   57   58   59   60 60.5   61   62   63   64   65   66   67   70 70.5   71   74   76   80 
+  15    8    6    4   10    8    1    4    5    6    3    7    1    5    5    4    5    3    1    1    2    1    2    1    1    1 
+> ptabela <- lm(Survived~Sex+Pclass+Age, data = train)
+> ptabela <- lm(Survived~as.factor(Sex)+Age+Pclass, data = train,subset =Pclass<3)
+> table(dados_full$SibSp)
+
+  0   1   2   3   4   5   8 
+891 319  42  20  22   6   9 
+> coef(ptabela)
+       (Intercept) as.factor(Sex)male                Age             Pclass 
+       1.428818972       -0.638108005       -0.005772165       -0.205715749 
+> summary(ptabela)
+
+Call:
+lm(formula = Survived ~ as.factor(Sex) + Age + Pclass, data = train, 
+    subset = Pclass < 3)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.21156 -0.22528 -0.04994  0.14423  0.97859 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         1.428819   0.084064  16.997  < 2e-16 ***
+as.factor(Sex)male -0.638108   0.037763 -16.898  < 2e-16 ***
+Age                -0.005772   0.001304  -4.427 1.27e-05 ***
+Pclass             -0.205716   0.038711  -5.314 1.90e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.3511 on 355 degrees of freedom
+  (41 observations deleted due to missingness)
+Multiple R-squared:  0.5025,	Adjusted R-squared:  0.4983 
+F-statistic: 119.5 on 3 and 355 DF,  p-value: < 2.2e-16
+
+> summary(test)
+  PassengerId         Pclass          Name               Sex                 Age            SibSp            Parch           Ticket               Fare            Cabin          
+ Min.   : 892.0   Min.   :1.000   Length:418         Length:418         Min.   : 0.17   Min.   :0.0000   Min.   :0.0000   Length:418         Min.   :  0.000   Length:418        
+ 1st Qu.: 996.2   1st Qu.:1.000   Class :character   Class :character   1st Qu.:21.00   1st Qu.:0.0000   1st Qu.:0.0000   Class :character   1st Qu.:  7.896   Class :character  
+ Median :1100.5   Median :3.000   Mode  :character   Mode  :character   Median :27.00   Median :0.0000   Median :0.0000   Mode  :character   Median : 14.454   Mode  :character  
+ Mean   :1100.5   Mean   :2.266                                         Mean   :30.27   Mean   :0.4474   Mean   :0.3923                      Mean   : 35.627                     
+ 3rd Qu.:1204.8   3rd Qu.:3.000                                         3rd Qu.:39.00   3rd Qu.:1.0000   3rd Qu.:0.0000                      3rd Qu.: 31.500                     
+ Max.   :1309.0   Max.   :3.000                                         Max.   :76.00   Max.   :8.0000   Max.   :9.0000                      Max.   :512.329                     
+                                                                        NA's   :86                                                           NA's   :1                           
+   Embarked         Survived        TrainSet      
+ Length:418         Mode:logical   Mode :logical  
+ Class :character   NA's:418       FALSE:418      
+ Mode  :character                                 
+                                                  
+                                                  
+                                                  
+                                                  
+> #0.607 + 0.3892
+> ptabela
+
+Call:
+lm(formula = Survived ~ as.factor(Sex) + Age + Pclass, data = train, 
+    subset = Pclass < 3)
+
+Coefficients:
+       (Intercept)  as.factor(Sex)male                 Age              Pclass  
+          1.428819           -0.638108           -0.005772           -0.205716  
+
+> 
+> #coef(ptabela)
+> 
+> pc<-predict(ptabela, newdata = test)
+> pc[is.na(pc)] <- 1
+> 
+> #View(pc)
+> pr7 <- ifelse(pc < 0.5,0,1)  
+> pr_data7 <- cbind(test$PassengerId,pr7)
+> pr_data7 <- as.data.frame(pr_data7)
+> 
+> # Colocando o nome das colunas 
+> names(pr_data7) <- c("PassengerId", "Survived")
+> 
+> # Verificando Mortos e Vivos
+> table(pr_data7$Survived)
+
+  0   1 
+203 215 
+> # VIVOS E MORTOS ( vivos = 1, mortos  = 0)
+> #   0   1 
+> # 203 129 
+> 
+> # Valores Nulos
+> table(is.na(pr_data7))
+
+FALSE 
+  836 
+> # FALSE  TRUE 
+> # 750    86
+> 
+> # Numero de colunas na tabela 
+> ncol(pr_data7)
+[1] 2
+> # [1] 2
+> 
+> # Tratamento de valores Nulos ???
+> #  pr_data7[is.na(pr_data7)] <- 0  
+> str(pr_data7)
+'data.frame':	418 obs. of  2 variables:
+ $ PassengerId: num  892 893 894 895 896 897 898 899 900 901 ...
+ $ Survived   : num  0 1 0 0 1 0 1 0 1 0 ...
+> # Escrevendo o arquivo em Disco
+> write.csv(pr_data7, file="predict79.csv", row.names = FALSE)
