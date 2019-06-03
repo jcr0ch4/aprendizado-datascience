@@ -37,3 +37,7 @@ The link with most updated lotterys can be downloaded here: http://www1.caixa.go
 
 Inspiration
 There's a lot of data science analisys to do here and patterns yet to discover. Maybe someday we can predict the next 6 numbers to win this lottery!
+
+
+
+Link : https://www.kaggle.com/viniciusbbizarri/sorteiosmegasena
